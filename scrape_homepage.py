@@ -118,7 +118,7 @@ def scrape_homepage_sections(soup):
 
 def main():
     print("Memulai scraper update homepage (Metode Hybrid Selenium)...")
-    home_soup = get_data(f"{BASE_URL}/home")
+    home_soup = get_soup(f"{BASE_URL}/home")
     
     if not home_soup:
         print("Kritis: Gagal memuat halaman utama. Proses dihentikan."); return
