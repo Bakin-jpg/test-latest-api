@@ -1,10 +1,10 @@
-name: Update Homepage Data
+name: Update Homepage Data (Hybrid Method)
 
 on:
   schedule:
-    # Jalankan setiap 30 menit untuk data yang fresh
-    - cron: '*/30 * * * *'
-  workflow_dispatch: # Tombol untuk menjalankan manual
+    # Jalankan setiap 1 jam karena sekarang lebih intensif
+    - cron: '0 * * * *'
+  workflow_dispatch:
 
 jobs:
   scrape:
@@ -17,12 +17,16 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: '3.10'
+      
+      # KEMBALIKAN LANGKAH INI
+      - name: Setup Chrome & Chromedriver
+        uses: nanasess/setup-chromedriver@v2
 
       - name: Install dependencies
         run: pip install -r requirements.txt
 
       - name: Run homepage scraper script
-        timeout-minutes: 5 # Waktu 5 menit lebih dari cukup
+        timeout-minutes: 20 # Tambah timeout karena ada proses browser
         run: python scrape_homepage.py
 
       - name: Commit and push changes
